@@ -102,7 +102,7 @@
         />
         <div class="flex-grow" />
         <div class="text-xs text-neutral-400 mt-8 text-right">
-          Last updated June 2025 – v1.0.1
+          Last updated June 2025 – v1.0.2
         </div>
       </aside>
     </main>

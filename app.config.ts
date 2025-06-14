@@ -7,6 +7,7 @@ export default defineAppConfig({
     radius: {
       default: "0.125rem",
     },
+    colorMode: "dark",
   },
 });
 

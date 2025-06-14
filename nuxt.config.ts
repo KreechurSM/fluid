@@ -8,12 +8,6 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
   modules: ["@nuxt/ui", "@nuxt/image", "@nuxtjs/google-fonts"],
-  ui: {
-    colors: {
-    primary: 'emerald',
-    gray: 'zinc',
-    }
-  },
   googleFonts: {
     families: {
       "Source Code Pro": [400, 500, 600, 700],
