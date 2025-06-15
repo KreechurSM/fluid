@@ -12,12 +12,14 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch, defineExpose } from 'vue'
 import PerlinNoise from '@/utils/PerlinNoise.js'
+import ManhattanNoise from '@/utils/ManhattanNoise.js'
 
 const props = defineProps([
   'proportion', 'size',
   'colorMode', 'solidColor', 'gradientStart', 'gradientEnd',
   'dotMin', 'dotMax', 'amplitude', 'waves', 'frequency', 'repelEnabled', 'repelRadius', 'repelStrength', 'maxDisplacement',
-  'isPaused'
+  'isPaused',
+  'noiseType'
 ])
 const emit = defineEmits(['toggle-pause'])
 
@@ -27,7 +29,7 @@ let animationFrameId = null
 let mouseX = null
 let mouseY = null
 let time = 0
-let perlin
+let noiseGen
 
 function lerp(a, b, t) {
   return a + (b - a) * t
@@ -107,8 +109,8 @@ function draw() {
       const baseX = offsetX + i * spacingX + spacingX / 2
       const baseY = offsetY + j * spacingY + spacingY / 2
 
-      const noiseX = perlin.noise(i * perlinScale, j * perlinScale, time * perlinSpeed)
-      const noiseY = perlin.noise(i * perlinScale + 100, j * perlinScale + 100, time * perlinSpeed + 100)
+      const noiseX = noiseGen.noise(i * perlinScale, j * perlinScale, time * perlinSpeed)
+      const noiseY = noiseGen.noise(i * perlinScale + 100, j * perlinScale + 100, time * perlinSpeed + 100)
       const offsetDotX = noiseX * perlinAmplitude
       const offsetDotY = noiseY * perlinAmplitude
 
@@ -168,7 +170,7 @@ function handleMouseMove(event) {
 }
 
 onMounted(() => {
-  perlin = new PerlinNoise()
+  createNoise()
   window.addEventListener('resize', resizeCanvas)
   canvasRef.value.addEventListener('mousemove', handleMouseMove)
   resizeCanvas()
@@ -187,6 +189,11 @@ onBeforeUnmount(() => {
 watch(() => props.isPaused, (paused) => {
   if (!paused) draw()
   else cancelAnimationFrame(animationFrameId)
+})
+
+watch(() => props.noiseType, () => {
+  createNoise()
+  draw()
 })
 
 function exportPNG() {
@@ -216,8 +223,16 @@ function exportSVG() {
 }
 
 function randomizeNoise() {
-  perlin = new PerlinNoise()
+  createNoise()
   draw()
+}
+
+function createNoise() {
+  if (props.noiseType === 'manhattan') {
+    noiseGen = new ManhattanNoise()
+  } else {
+    noiseGen = new PerlinNoise()
+  }
 }
 
 defineExpose({ exportPNG, exportSVG, randomizeNoise })

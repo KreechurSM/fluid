@@ -15,6 +15,18 @@
     </div>
     <transition name="fade-slide">
       <div v-if="isOpen">
+        <!-- Noise Type Selector -->
+        <div class="mb-4">
+          <div class="flex items-center gap-2 mb-1">
+            <UIcon name="i-lucide-shuffle" class="text-neutral-400" />
+            <label class="block text-sm font-medium mb-1">Noise Type</label>
+          </div>
+          <USelect
+            v-model="noiseType"
+            :items="noiseTypeOptions"
+            class="w-40 interactive"
+          />
+        </div>
         <div class="mb-4">
           <div class="flex items-center gap-2 mb-1">
             <UIcon name="i-lucide-dot" class="text-neutral-400" />
@@ -119,6 +131,7 @@ const props = defineProps([
   "repelRadius",
   "repelStrength",
   "maxDisplacement",
+  "noiseType",
 ]);
 const emit = defineEmits([
   "update:dotMin",
@@ -130,6 +143,7 @@ const emit = defineEmits([
   "update:repelRadius",
   "update:repelStrength",
   "update:maxDisplacement",
+  "update:noiseType",
 ]);
 
 const dotMin = defineModel("dotMin");
@@ -141,6 +155,12 @@ const repelEnabled = defineModel("repelEnabled");
 const repelRadius = defineModel("repelRadius");
 const repelStrength = defineModel("repelStrength");
 const maxDisplacement = defineModel("maxDisplacement");
+const noiseType = defineModel("noiseType");
+
+const noiseTypeOptions = ref([
+  { label: "Perlin", value: "perlin" },
+  { label: "Manhattan", value: "manhattan" },
+]);
 
 const isOpen = ref(true);
 </script>

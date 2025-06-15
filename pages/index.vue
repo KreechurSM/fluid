@@ -83,6 +83,7 @@
           :repelStrength="repelStrength"
           :maxDisplacement="maxDisplacement"
           :isPaused="isPaused"
+          :noiseType="noiseType"
           @toggle-pause="togglePause"
         />
       </section>
@@ -99,6 +100,7 @@
           v-model:repelRadius="repelRadius"
           v-model:repelStrength="repelStrength"
           v-model:maxDisplacement="maxDisplacement"
+          v-model:noiseType="noiseType"
         />
         <div class="flex-grow" />
         <div class="text-xs text-neutral-400 mt-8 text-right">
@@ -130,6 +132,7 @@ const repelEnabled = ref(false)
 const repelRadius = ref(75)
 const repelStrength = ref(15)
 const maxDisplacement = ref(40)
+const noiseType = ref('perlin')
 
 const isPaused = ref(false)
 function togglePause() {
