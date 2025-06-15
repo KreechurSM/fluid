@@ -160,6 +160,11 @@ const noiseType = defineModel("noiseType");
 const noiseTypeOptions = ref([
   { label: "Perlin", value: "perlin" },
   { label: "Manhattan", value: "manhattan" },
+  { label: "Simplex", value: "simplex" },
+  // TODO: Add more noise types if needed
+  // { label: "Cellular", value: "cellular" },
+  // { label: "Worley", value: "worley" },
+  // { label: "Voronoi", value: "voronoi" },
 ]);
 
 const isOpen = ref(true);

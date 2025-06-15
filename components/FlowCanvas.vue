@@ -13,6 +13,7 @@
 import { ref, onMounted, onBeforeUnmount, watch, defineExpose } from 'vue'
 import PerlinNoise from '@/utils/PerlinNoise.js'
 import ManhattanNoise from '@/utils/ManhattanNoise.js'
+import SimplexNoise from '@/utils/SimplexNoise.js'
 
 const props = defineProps([
   'proportion', 'size',
@@ -230,6 +231,8 @@ function randomizeNoise() {
 function createNoise() {
   if (props.noiseType === 'manhattan') {
     noiseGen = new ManhattanNoise()
+  } else if (props.noiseType === 'simplex') {
+    noiseGen = new SimplexNoise()
   } else {
     noiseGen = new PerlinNoise()
   }
