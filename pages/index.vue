@@ -2,9 +2,9 @@
   <div :class="['min-h-screen', 'flex flex-col']">
     <!-- Header -->
     <header class="flex items-center justify-between px-4 py-3 border-b border-neutral-800">
-      <div class="flex items-center gap-2 text-gradient"> <!-- Moved text-gradient here -->
-        <img src="/logo.svg" alt="Fluid Logo" class="h-6 w-6"> <!-- Added image, adjust size as needed -->
-        <span class="font-bold text-lg">FLUID</span> <!-- Removed text-gradient from here -->
+      <div class="flex items-center gap-2"> <!-- text-gradient removed from here -->
+        <img src="/logo.svg" alt="Fluid Logo" class="h-6 w-6">
+        <span class="font-bold text-lg text-gradient">FLUID</span> <!-- text-gradient added back here -->
       </div>
       <div class="flex items-center gap-2">
         <UButton
