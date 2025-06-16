@@ -17,10 +17,12 @@
       <div v-if="isOpen">
         <!-- Noise Type Selector -->
         <div class="mb-4">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-shuffle" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Noise Type</label>
-          </div>
+          <UTooltip text="Choose the algorithm that animates the grid. Perlin, Manhattan, and Simplex create different flow patterns.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-shuffle" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Noise Type</label>
+            </div>
+          </UTooltip>
           <USelect
             v-model="noiseType"
             :items="noiseTypeOptions"
@@ -28,51 +30,63 @@
           />
         </div>
         <div class="mb-4">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-dot" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Dot Min</label>
-            <span class="ml-auto text-xs">{{ dotMin }}</span>
-          </div>
+          <UTooltip text="Set the minimum size for each dot. The actual size animates based on how much each dot is displaced.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-dot" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Dot Min</label>
+              <span class="ml-auto text-xs">{{ dotMin }}</span>
+            </div>
+          </UTooltip>
           <USlider v-model="dotMin" :min="0.1" :max="3" :step="0.1" class="interactive" />
         </div>
         <div class="mb-4">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-circle-plus" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Dot Max</label>
-            <span class="ml-auto text-xs">{{ dotMax }}</span>
-          </div>
+          <UTooltip text="Set the maximum size for each dot. The actual size animates based on how much each dot is displaced.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-circle-plus" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Dot Max</label>
+              <span class="ml-auto text-xs">{{ dotMax }}</span>
+            </div>
+          </UTooltip>
           <USlider v-model="dotMax" :min="1" :max="8" :step="0.1" class="interactive" />
         </div>
         <div class="mb-4">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-activity" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Amplitude</label>
-            <span class="ml-auto text-xs">{{ amplitude }}</span>
-          </div>
+          <UTooltip text="Controls how far dots can move from their base position (the strength of the noise effect).">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-activity" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Amplitude</label>
+              <span class="ml-auto text-xs">{{ amplitude }}</span>
+            </div>
+          </UTooltip>
           <USlider v-model="amplitude" :min="0" :max="100" :step="1" class="interactive" />
         </div>
         <div class="mb-4">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-waves" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Waves</label>
-            <span class="ml-auto text-xs">{{ waves }}</span>
-          </div>
-          <USlider v-model="waves" :min="0" :max="1" :step="0.05" class="interactive" />
+          <UTooltip text="Adjusts the frequency of the noise, affecting the 'waviness' of the flow.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-waves" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Waves</label>
+              <span class="ml-auto text-xs">{{ waves }}</span>
+            </div>
+          </UTooltip>
+          <USlider v-model="waves" :min="0" :max="0.25" :step="0.001" class="interactive" />
         </div>
         <div class="mb-4">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-radio" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Frequency</label>
-            <span class="ml-auto text-xs">{{ frequency }}</span>
-          </div>
+          <UTooltip text="Controls the speed of the animation (how quickly the noise evolves over time).">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-radio" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Frequency</label>
+              <span class="ml-auto text-xs">{{ frequency }}</span>
+            </div>
+          </UTooltip>
           <USlider v-model="frequency" :min="0" :max="0.01" :step="0.0001" class="interactive" />
         </div>
         <div class="mb-6">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-move-diagonal" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Max Displacement</label>
-            <span class="ml-auto text-xs">{{ maxDisplacement }}</span>
-          </div>
+          <UTooltip text="Sets the maximum distance a dot can move from its original grid position.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-move-diagonal" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Max Displacement</label>
+              <span class="ml-auto text-xs">{{ maxDisplacement }}</span>
+            </div>
+          </UTooltip>
           <USlider v-model="maxDisplacement" :min="1" :max="100" :step="1" class="interactive" />
         </div>
         <div class="font-semibold mt-6 mb-4 flex items-center gap-2">
@@ -80,16 +94,20 @@
           Repel Settings
         </div>
         <div class="mb-4 flex items-center gap-2">
-          <UIcon name="i-lucide-toggle-left" class="text-neutral-400" />
-          <UCheckbox v-model="repelEnabled" class="interactive" />
-          <span class="text-sm">Enable Repel</span>
+          <UTooltip text="When enabled, moving your mouse over the canvas will push nearby dots away, creating interactive ripples.">
+            <UIcon name="i-lucide-toggle-left" class="text-neutral-400" />
+            <UCheckbox v-model="repelEnabled" class="interactive" />
+            <span class="text-sm">Enable Repel</span>
+          </UTooltip>
         </div>
         <div class="mb-4">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-expand" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Repel Radius</label>
-            <span class="ml-auto text-xs">{{ repelRadius }}</span>
-          </div>
+          <UTooltip text="The area around the mouse that affects the dots.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-expand" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Repel Radius</label>
+              <span class="ml-auto text-xs">{{ repelRadius }}</span>
+            </div>
+          </UTooltip>
           <USlider
             v-model="repelRadius"
             :min="10"
@@ -100,11 +118,13 @@
           />
         </div>
         <div>
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-zap" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Repel Strength</label>
-            <span class="ml-auto text-xs">{{ repelStrength }}</span>
-          </div>
+          <UTooltip text="How strongly dots are pushed away from the mouse.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-zap" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Repel Strength</label>
+              <span class="ml-auto text-xs">{{ repelStrength }}</span>
+            </div>
+          </UTooltip>
           <USlider
             v-model="repelStrength"
             :min="1"

@@ -15,13 +15,15 @@
     <transition name="fade-slide">
       <div v-if="isOpen">
         <div class="mb-4">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-grid" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Grid Proportion</label>
-            <span class="ml-auto text-xs"
-              >{{ proportion }} x {{ proportion }}</span
-            >
-          </div>
+          <UTooltip text="Controls the number of rows and columns in the grid. Higher values create a denser grid.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-grid" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Grid Proportion</label>
+              <span class="ml-auto text-xs"
+                >{{ proportion }} x {{ proportion }}</span
+              >
+            </div>
+          </UTooltip>
           <USlider
             v-model="proportion"
             :min="10"
@@ -30,11 +32,13 @@
           />
         </div>
         <div class="mb-4">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-maximize-2" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Size</label>
-            <span class="ml-auto text-xs">{{ size }}</span>
-          </div>
+          <UTooltip text="Adjusts the overall size of the grid relative to the canvas.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-maximize-2" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Size</label>
+              <span class="ml-auto text-xs">{{ size }}</span>
+            </div>
+          </UTooltip>
           <USlider
             v-model="size"
             :min="0.1"
@@ -44,17 +48,21 @@
           />
         </div>
         <div class="mb-4">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-palette" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Color Mode</label>
-          </div>
+          <UTooltip text="Choose between a gradient (vertical color blend) or a solid color for all dots.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-palette" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Color Mode</label>
+            </div>
+          </UTooltip>
           <USelect v-model="colorMode" :items="colorOptions" class="w-48 interactive" />
         </div>
         <div v-if="colorMode === 'solid'">
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-droplet" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Dot Color</label>
-          </div>
+          <UTooltip text="Pick a single color for all dots.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-droplet" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Dot Color</label>
+            </div>
+          </UTooltip>
           <UInput
             type="color"
             v-model="solidColor"
@@ -62,19 +70,23 @@
           />
         </div>
         <div v-else>
-          <div class="flex items-center gap-2 mb-1">
-            <UIcon name="i-lucide-arrow-up" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Gradient Start</label>
-          </div>
+          <UTooltip text="Select the start color for the vertical gradient applied to the dots.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-arrow-up" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Gradient Start</label>
+            </div>
+          </UTooltip>
           <UInput
             type="color"
             v-model="gradientStart"
             class="w-8 h-8 p-0 border-none bg-transparent interactive"
           />
-          <div class="flex items-center gap-2 mb-1 mt-2">
-            <UIcon name="i-lucide-arrow-down" class="text-neutral-400" />
-            <label class="block text-sm font-medium mb-1">Gradient End</label>
-          </div>
+          <UTooltip text="Select the end color for the vertical gradient applied to the dots.">
+            <div class="flex items-center gap-2 mb-1 mt-2">
+              <UIcon name="i-lucide-arrow-down" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Gradient End</label>
+            </div>
+          </UTooltip>
           <UInput
             type="color"
             v-model="gradientEnd"

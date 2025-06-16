@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch, defineExpose } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import PerlinNoise from '@/utils/PerlinNoise.js'
 import ManhattanNoise from '@/utils/ManhattanNoise.js'
 import SimplexNoise from '@/utils/SimplexNoise.js'
