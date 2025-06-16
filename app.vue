@@ -18,11 +18,11 @@ useHead({
       type: 'application/ld+json',
       children: JSON.stringify(
         defineWebSite({
-          name: 'My Awesome Site', // Should match siteName
-          url: 'https://example.com', // Should match siteUrl
+          name: 'Fluid', // Should match siteName
+          url: 'https://fluid.stevemartin.dev', // Should match siteUrl
           potentialAction: {
             '@type': 'SearchAction',
-            target: 'https://example.com/search?q={search_term_string}', // Placeholder
+            target: 'https://fluid.stevemartin.dev/search?q={search_term_string}', // Placeholder
             'query-input': 'required name=search_term_string',
           },
         }),
@@ -32,9 +32,9 @@ useHead({
       type: 'application/ld+json',
       children: JSON.stringify(
         defineOrganization({
-          name: 'My Awesome Company', // Placeholder
-          url: 'https://example.com', // Placeholder
-          logo: 'https://example.com/company-logo.png', // Placeholder
+          name: 'Fluid Visualizer', // Placeholder
+          url: 'https://fluid.stevemartin.dev', // Placeholder
+          logo: '/logo.svg',
         }),
       ),
     },

@@ -9,10 +9,16 @@ export default defineNuxtConfig({
   },
   modules: ["@nuxt/ui", "@nuxt/image", "@nuxtjs/google-fonts", "@nuxtjs/seo"],
   seo: {
-    siteName: 'My Awesome Site', // Placeholder
-    siteDescription: 'This is a description of my awesome site.', // Placeholder
-    siteUrl: 'https://example.com', // Placeholder
+    siteName: 'Fluid',
+    siteDescription: 'Fluid is a Perlin noise Visualizer for a dot grid',
+    siteUrl: 'https://fluid.stevemartin.dev',
     language: 'en', // Placeholder
+    titleSeparator: ' - ',
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }
+      ]
+    },
     robots: {
       // Initially disallow all to see if it overrides the public/robots.txt
       // We can refine this later.
