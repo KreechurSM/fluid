@@ -2,8 +2,9 @@
   <div :class="['min-h-screen', 'flex flex-col']">
     <!-- Header -->
     <header class="flex items-center justify-between px-4 py-3 border-b border-neutral-800">
-      <div class="flex items-center gap-2">
-        <span class="font-bold text-lg text-gradient">FLUID</span>
+      <div class="flex items-center gap-2 text-gradient"> <!-- Moved text-gradient here -->
+        <img src="/logo.svg" alt="Fluid Logo" class="h-6 w-6"> <!-- Added image, adjust size as needed -->
+        <span class="font-bold text-lg">FLUID</span> <!-- Removed text-gradient from here -->
       </div>
       <div class="flex items-center gap-2">
         <UButton
@@ -113,6 +114,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useSeoMeta } from '#imports'
 import MatrixSettings from '~/components/MatrixSettings.vue'
 import FlowCanvas from '~/components/FlowCanvas.vue'
 import PropertiesPanel from '~/components/PropertiesPanel.vue'
@@ -152,6 +154,15 @@ function downloadSVG() {
 function randomizePerlin() {
   flowCanvasRef.value?.randomizeNoise()
 }
+
+useSeoMeta({
+  title: 'Steve Martin', // Changed
+  description: 'Fluid is a Perlin noise Visualizer for a dot grid by Steve Martin.', // Updated description
+  ogTitle: 'Fluid - Steve Martin', // Updated OG Title
+  ogDescription: 'Fluid is a Perlin noise Visualizer for a dot grid by Steve Martin.', // Updated OG Description
+  ogImage: '/logo.svg', // Use the new logo for OG image
+  twitterCard: 'summary_large_image',
+});
 </script>
 
 <style scoped>
