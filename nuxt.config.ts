@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@nuxt/image", "@nuxtjs/google-fonts", "@nuxtjs/seo"],
   seo: {
     siteName: 'Fluid',
-    siteDescription: 'Fluid is a Perlin noise Visualizer for a dot grid',
+    siteDescription: 'Fluid is a dynamic Perlin Noise Visualizer and Playground. Create stunning, interactive noise patterns and dive into a world of smooth, organic visuals. Perfect for artists, developers and enthusiasts.',
     siteUrl: 'https://fluid.stevemartin.dev',
     language: 'en', // Placeholder
     titleSeparator: ' - ',

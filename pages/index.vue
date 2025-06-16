@@ -105,7 +105,7 @@
         />
         <div class="flex-grow" />
         <div class="text-xs text-neutral-400 mt-8 text-right">
-          Last updated June 2025 – v1.0.3
+          Last updated June 2025 – v1.0.5
         </div>
       </aside>
     </main>
@@ -123,8 +123,8 @@ const proportion = ref(88)
 const size = ref(0.85)
 const colorMode = ref('gradient')
 const solidColor = ref('#ffffff')
-const gradientStart = ref('#aeefff')
-const gradientEnd = ref('#ffb86b')
+const gradientStart = ref('#00d492')
+const gradientEnd = ref('#51a2ff')
 const dotMin = ref(0.3)
 const dotMax = ref(4)
 const amplitude = ref(20)
@@ -156,7 +156,7 @@ function randomizePerlin() {
 }
 
 useSeoMeta({
-  title: 'Steve Martin', // Changed
+  title: 'Fluid - Steve Martin', // Changed
   description: 'Fluid is a Perlin noise Visualizer for a dot grid by Steve Martin.', // Updated description
   ogTitle: 'Fluid - Steve Martin', // Updated OG Title
   ogDescription: 'Fluid is a Perlin noise Visualizer for a dot grid by Steve Martin.', // Updated OG Description
@@ -167,7 +167,7 @@ useSeoMeta({
 
 <style scoped>
 .text-gradient {
-  background: linear-gradient(90deg, #ff5e62 0%, #ff9966 100%);
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: filter 0.3s cubic-bezier(0.4,0,0.2,1), text-shadow 0.3s;
