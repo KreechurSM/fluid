@@ -113,6 +113,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useSeoMeta } from '#imports'
 import MatrixSettings from '~/components/MatrixSettings.vue'
 import FlowCanvas from '~/components/FlowCanvas.vue'
 import PropertiesPanel from '~/components/PropertiesPanel.vue'
@@ -152,6 +153,15 @@ function downloadSVG() {
 function randomizePerlin() {
   flowCanvasRef.value?.randomizeNoise()
 }
+
+useSeoMeta({
+  title: 'Homepage - My Awesome Site',
+  description: 'This is the homepage of my awesome site, showcasing amazing things.',
+  ogTitle: 'Homepage - My Awesome Site',
+  ogDescription: 'This is the homepage of my awesome site, showcasing amazing things.',
+  ogImage: 'https://example.com/og-image.png', // Placeholder
+  twitterCard: 'summary_large_image',
+});
 </script>
 
 <style scoped>
