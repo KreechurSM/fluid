@@ -1,11 +1,14 @@
 <template>
   <UCard class="mb-4 bg-neutral-800">
+    <!-- Consistent Panel Header -->
     <div
       class="flex items-center justify-between cursor-pointer select-none mb-6"
       @click="isOpen = !isOpen"
     >
-      <UIcon name="i-lucide-audio-waveform" />
-      <div class="font-semibold">Noise Settings</div>
+      <div class="flex items-center gap-2">
+        <UIcon name="i-lucide-audio-waveform" class="text-neutral-400" />
+        <span class="font-semibold">Noise Settings</span>
+      </div>
       <span
         class="transition-transform duration-300"
         :class="isOpen ? 'rotate-180' : ''"
@@ -33,7 +36,7 @@
           <UTooltip text="Set the minimum size for each dot. The actual size animates based on how much each dot is displaced.">
             <div class="flex items-center gap-2 mb-1">
               <UIcon name="i-lucide-dot" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1">Dot Min</label>
+              <label class="block text-sm font-medium mb-1">Dot Minimum</label>
               <span class="ml-auto text-xs">{{ dotMin }}</span>
             </div>
           </UTooltip>
@@ -89,9 +92,10 @@
           </UTooltip>
           <USlider v-model="maxDisplacement" :min="1" :max="100" :step="1" class="interactive" />
         </div>
+        <!-- Consistent Repel Settings Header -->
         <div class="font-semibold mt-6 mb-4 flex items-center gap-2">
           <UIcon name="i-lucide-shield-off" class="text-neutral-400" />
-          Repel Settings
+          <span>Repel Settings</span>
         </div>
         <div class="mb-4 flex items-center gap-2">
           <UTooltip text="When enabled, moving your mouse over the canvas will push nearby dots away, creating interactive ripples.">

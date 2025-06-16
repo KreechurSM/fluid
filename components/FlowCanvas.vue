@@ -1,16 +1,24 @@
 <template>
   <div class="relative w-full flex justify-center">
     <div class="aspect-square w-full max-w-[600px] rounded-lg flex items-center justify-center">
+      <!-- Burst effect overlay (behind canvas) -->
+      <span
+        v-if="highlight"
+        class="canvas-burst"
+        :style="burstStyle"
+        @animationend="highlight = false"
+      ></span>
       <canvas
         ref="canvasRef"
         class="w-full h-full rounded-lg block"
+        style="position: relative; z-index: 2;"
       />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch, computed, nextTick } from 'vue'
 import PerlinNoise from '@/utils/PerlinNoise.js'
 import ManhattanNoise from '@/utils/ManhattanNoise.js'
 import SimplexNoise from '@/utils/SimplexNoise.js'
@@ -26,6 +34,8 @@ const props = defineProps([
 const emit = defineEmits(['toggle-pause'])
 
 const canvasRef = ref(null)
+const highlight = ref(false)
+const burstSize = ref(0)
 
 let animationFrameId = null
 let mouseX = null
@@ -241,5 +251,111 @@ function createNoise() {
   }
 }
 
+function triggerHighlight() {
+  highlight.value = false
+  // Force reflow to restart animation if needed
+  void document.body.offsetWidth
+  highlight.value = true
+}
+
+// Watch for settings changes that affect the canvas
+watch(
+  [
+    () => props.dotMin,
+    () => props.dotMax,
+    () => props.amplitude,
+    () => props.waves,
+    () => props.frequency,
+    () => props.repelEnabled,
+    () => props.repelRadius,
+    () => props.repelStrength,
+    () => props.maxDisplacement,
+    () => props.noiseType,
+    () => props.proportion,
+    () => props.size,
+    () => props.colorMode,
+    () => props.solidColor,
+    () => props.gradientStart,
+    () => props.gradientEnd,
+  ],
+  () => {
+    triggerHighlight()
+  }
+)
+
+function updateBurstSize() {
+  nextTick(() => {
+    if (canvasRef.value) {
+      burstSize.value = canvasRef.value.width
+    }
+  })
+}
+
+onMounted(() => {
+  updateBurstSize()
+  window.addEventListener('resize', updateBurstSize)
+  canvasRef.value.addEventListener('mousemove', handleMouseMove)
+  resizeCanvas()
+  draw()
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateBurstSize)
+  if (canvasRef.value) {
+    canvasRef.value.removeEventListener('mousemove', handleMouseMove)
+  }
+  cancelAnimationFrame(animationFrameId)
+})
+
+watch(
+  [
+    () => props.size,
+    () => props.proportion,
+  ],
+  updateBurstSize
+)
+
+const burstStyle = computed(() => ({
+  width: burstSize.value + 'px',
+  height: burstSize.value + 'px',
+}))
+
 defineExpose({ exportPNG, exportSVG, randomizeNoise })
 </script>
+
+<style scoped>
+.canvas-burst {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.2);
+  z-index: 1; /* Behind the canvas */
+  background: radial-gradient(circle, rgba(81,162,255,0.22) 0%, rgba(81,162,255,0.10) 60%, rgba(81,162,255,0.0) 100%);
+  animation: burstCircle 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes burstCircle {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0.7;
+    filter: blur(2px);
+  }
+  40% {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0.5;
+    filter: blur(8px);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.25;
+    filter: blur(16px);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0;
+    filter: blur(24px);
+  }
+}
+</style>

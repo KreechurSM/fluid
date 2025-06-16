@@ -1,11 +1,14 @@
 <template>
   <UCard class="mb-4 bg-neutral-800" style="overflow: visible">
+    <!-- Consistent Panel Header -->
     <div
       class="flex items-center justify-between cursor-pointer select-none mb-6"
       @click="isOpen = !isOpen"
     >
-      <UIcon name="i-lucide-grip" />
-      <div class="font-semibold">Matrix Settings</div>
+      <div class="flex items-center gap-2">
+        <UIcon name="i-lucide-grip" class="text-neutral-400" />
+        <span class="font-semibold">Matrix Settings</span>
+      </div>
       <span class="transition-transform duration-300"
         :class="isOpen ? 'rotate-180' : ''"
       >
