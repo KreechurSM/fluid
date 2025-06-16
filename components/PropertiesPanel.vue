@@ -77,7 +77,7 @@
               <span class="ml-auto text-xs">{{ frequency }}</span>
             </div>
           </UTooltip>
-          <USlider v-model="frequency" :min="0" :max="0.01" :step="0.0001" class="interactive" />
+          <USlider v-model="frequency" :min="0" :max="0.025" :step="0.00025" class="interactive" />
         </div>
         <div class="mb-6">
           <UTooltip text="Sets the maximum distance a dot can move from its original grid position.">
@@ -141,6 +141,8 @@
 
 <script setup>
 import { ref } from "vue";
+import noiseTypeOptions from "@/utils/noiseTypeOptions.js"; // <-- Import here
+
 const props = defineProps([
   "dotMin",
   "dotMax",
@@ -176,16 +178,6 @@ const repelRadius = defineModel("repelRadius");
 const repelStrength = defineModel("repelStrength");
 const maxDisplacement = defineModel("maxDisplacement");
 const noiseType = defineModel("noiseType");
-
-const noiseTypeOptions = ref([
-  { label: "Perlin", value: "perlin" },
-  { label: "Manhattan", value: "manhattan" },
-  { label: "Simplex", value: "simplex" },
-  // TODO: Add more noise types if needed
-  // { label: "Cellular", value: "cellular" },
-  // { label: "Worley", value: "worley" },
-  // { label: "Voronoi", value: "voronoi" },
-]);
 
 const isOpen = ref(true);
 </script>
