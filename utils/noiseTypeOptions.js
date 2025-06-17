@@ -3,4 +3,5 @@ export default [
   { label: "Manhattan", value: "manhattan" },
   { label: "Simplex", value: "simplex" },
   { label: "Worley", value: "worley" },
+  { label: "White", value: "white" },
 ];
