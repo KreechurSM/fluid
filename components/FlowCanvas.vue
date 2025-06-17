@@ -23,6 +23,7 @@ import PerlinNoise from '@/utils/PerlinNoise.js'
 import ManhattanNoise from '@/utils/ManhattanNoise.js'
 import SimplexNoise from '@/utils/SimplexNoise.js'
 import WorleyNoise from '@/utils/WorleyNoise.js'
+import WhiteNoise from '@/utils/WhiteNoise.js'
 
 const props = defineProps([
   'proportion', 'size',
@@ -240,15 +241,15 @@ function randomizeNoise() {
 }
 
 function createNoise() {
-  if (props.noiseType === 'worley') {
-    noiseGen = new WorleyNoise()
-  } else if (props.noiseType === 'manhattan') {
-    noiseGen = new ManhattanNoise()
-  } else if (props.noiseType === 'simplex') {
-    noiseGen = new SimplexNoise()
-  } else {
-    noiseGen = new PerlinNoise()
+  const noiseTypes = {
+    perlin: PerlinNoise,
+    manhattan: ManhattanNoise,
+    simplex: SimplexNoise,
+    worley: WorleyNoise,
+    white: WhiteNoise,
   }
+  const NoiseClass = noiseTypes[props.noiseType] || PerlinNoise // Default to PerlinNoise
+  noiseGen = new NoiseClass()
 }
 
 function triggerHighlight() {
