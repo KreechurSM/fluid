@@ -33,6 +33,16 @@
           />
         </div>
         <div class="mb-4">
+          <UTooltip text="Controls how far dots can move from their base position (the strength of the noise effect).">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-activity" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Amplitude</label>
+              <span class="ml-auto text-xs">{{ amplitude }}</span>
+            </div>
+          </UTooltip>
+          <USlider v-model="amplitude" :min="0" :max="100" :step="1" class="interactive" />
+        </div>
+        <div class="mb-4">
           <UTooltip text="Set the minimum size for each dot. The actual size animates based on how much each dot is displaced.">
             <div class="flex items-center gap-2 mb-1">
               <UIcon name="i-lucide-dot" class="text-neutral-400" />
@@ -53,26 +63,6 @@
           <USlider v-model="dotMax" :min="1" :max="8" :step="0.1" class="interactive" />
         </div>
         <div class="mb-4">
-          <UTooltip text="Controls how far dots can move from their base position (the strength of the noise effect).">
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-activity" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1">Amplitude</label>
-              <span class="ml-auto text-xs">{{ amplitude }}</span>
-            </div>
-          </UTooltip>
-          <USlider v-model="amplitude" :min="0" :max="100" :step="1" class="interactive" />
-        </div>
-        <div class="mb-4">
-          <UTooltip text="Adjusts the frequency of the noise, affecting the 'waviness' of the flow.">
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-waves" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1">Waves</label>
-              <span class="ml-auto text-xs">{{ waves }}</span>
-            </div>
-          </UTooltip>
-          <USlider v-model="waves" :min="0" :max="0.25" :step="0.001" class="interactive" />
-        </div>
-        <div class="mb-4">
           <UTooltip text="Controls the speed of the animation (how quickly the noise evolves over time).">
             <div class="flex items-center gap-2 mb-1">
               <UIcon name="i-lucide-radio" class="text-neutral-400" />
@@ -91,6 +81,16 @@
             </div>
           </UTooltip>
           <USlider v-model="maxDisplacement" :min="1" :max="100" :step="1" class="interactive" />
+        </div>
+        <div class="mb-4">
+          <UTooltip text="Adjusts the frequency of the noise, affecting the 'waviness' of the flow.">
+            <div class="flex items-center gap-2 mb-1">
+              <UIcon name="i-lucide-waves" class="text-neutral-400" />
+              <label class="block text-sm font-medium mb-1">Waves</label>
+              <span class="ml-auto text-xs">{{ waves }}</span>
+            </div>
+          </UTooltip>
+          <USlider v-model="waves" :min="0" :max="0.25" :step="0.001" class="interactive" />
         </div>
         <!-- Consistent Repel Settings Header -->
         <div class="font-semibold mt-6 mb-4 flex items-center gap-2">

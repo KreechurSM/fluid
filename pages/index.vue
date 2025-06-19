@@ -49,7 +49,7 @@
       <!-- Left Sidebar -->
       <aside class="w-full md:w-72 flex-shrink-0 flex flex-col">
         <MatrixSettings
-          v-model:proportion="proportion"
+          v-model:dimensions="dimensions"
           v-model:size="size"
           v-model:colorMode="colorMode"
           v-model:solidColor="solidColor"
@@ -68,7 +68,7 @@
       <section class="flex-1 flex items-center justify-center">
         <FlowCanvas
           ref="flowCanvasRef"
-          :proportion="proportion"
+          :dimensions="dimensions"
           :size="size"
           :color-mode="colorMode"
           :solid-color="solidColor"
@@ -119,7 +119,7 @@ import MatrixSettings from '~/components/MatrixSettings.vue'
 import FlowCanvas from '~/components/FlowCanvas.vue'
 import PropertiesPanel from '~/components/PropertiesPanel.vue'
 
-const proportion = ref(88)
+const dimensions = ref(88)
 const size = ref(0.85)
 const colorMode = ref('gradient')
 const solidColor = ref('#ffffff')

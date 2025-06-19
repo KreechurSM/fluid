@@ -12,7 +12,7 @@ This project is a generative art playground built with Nuxt 3, featuring a dynam
 
 ### Matrix Settings (Left Panel)
 
-- **Grid Proportion**  
+- **Dimensions**  
   Controls the number of rows and columns in the grid. Higher values create a denser grid.
 
 - **Size**  

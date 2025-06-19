@@ -19,6 +19,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch, computed, nextTick } from 'vue'
+import { hexToHSL, lerp } from '@/composables/useColor.js'
 import PerlinNoise from '@/utils/PerlinNoise.js'
 import ManhattanNoise from '@/utils/ManhattanNoise.js'
 import SimplexNoise from '@/utils/SimplexNoise.js'
@@ -27,7 +28,7 @@ import WhiteNoise from '@/utils/WhiteNoise.js'
 import FractionalBrownianNoise from '@/utils/FractionalBrownianNoise.js'
 
 const props = defineProps([
-  'proportion', 'size',
+  'dimensions', 'size',
   'colorMode', 'solidColor', 'gradientStart', 'gradientEnd',
   'dotMin', 'dotMax', 'amplitude', 'waves', 'frequency', 'repelEnabled', 'repelRadius', 'repelStrength', 'maxDisplacement',
   'isPaused',
@@ -44,36 +45,6 @@ let mouseX = null
 let mouseY = null
 let time = 0
 let noiseGen
-
-function lerp(a, b, t) {
-  return a + (b - a) * t
-}
-
-function hexToHSL(hex) {
-  let r = 0, g = 0, b = 0
-  if (hex.length === 7) {
-    r = parseInt(hex.slice(1, 3), 16) / 255
-    g = parseInt(hex.slice(3, 5), 16) / 255
-    b = parseInt(hex.slice(5, 7), 16) / 255
-  }
-  const max = Math.max(r, g, b), min = Math.min(r, g, b)
-  let h = 0, s = 0, l = (max + min) / 2
-  if (max !== min) {
-    const d = max - min
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
-    switch (max) {
-      case r: h = (g - b) / d + (g < b ? 6 : 0); break
-      case g: h = (b - r) / d + 2; break
-      case b: h = (r - g) / d + 4; break
-    }
-    h /= 6
-  }
-  return {
-    h: Math.round(h * 360),
-    s: Math.round(s * 100),
-    l: Math.round(l * 100)
-  }
-}
 
 function getDotColor(baseY, canvasHeight) {
   if (props.colorMode === 'solid') {
@@ -100,7 +71,7 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   const gridPixelSize = canvas.width * Number(props.size)
-  const gridCount = Number(props.proportion) || 88
+  const gridCount = Number(props.dimensions) || 88
   const cols = gridCount
   const rows = gridCount
   const spacingX = gridPixelSize / cols
@@ -274,7 +245,7 @@ watch(
     () => props.repelStrength,
     () => props.maxDisplacement,
     () => props.noiseType,
-    () => props.proportion,
+    () => props.dimensions,
     () => props.size,
     () => props.colorMode,
     () => props.solidColor,
@@ -313,7 +284,7 @@ onBeforeUnmount(() => {
 watch(
   [
     () => props.size,
-    () => props.proportion,
+    () => props.dimensions,
   ],
   updateBurstSize
 )
