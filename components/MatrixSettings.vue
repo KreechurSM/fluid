@@ -30,7 +30,7 @@
           <USlider
             v-model="proportion"
             :min="10"
-            :max="200"
+            :max="150"
             class="interactive"
           />
         </div>

@@ -24,6 +24,7 @@ import ManhattanNoise from '@/utils/ManhattanNoise.js'
 import SimplexNoise from '@/utils/SimplexNoise.js'
 import WorleyNoise from '@/utils/WorleyNoise.js'
 import WhiteNoise from '@/utils/WhiteNoise.js'
+import FractionalBrownianNoise from '@/utils/FractionalBrownianNoise.js'
 
 const props = defineProps([
   'proportion', 'size',
@@ -247,6 +248,7 @@ function createNoise() {
     simplex: SimplexNoise,
     worley: WorleyNoise,
     white: WhiteNoise,
+    fbm: FractionalBrownianNoise, // Add this line
   }
   const NoiseClass = noiseTypes[props.noiseType] || PerlinNoise // Default to PerlinNoise
   noiseGen = new NoiseClass()
