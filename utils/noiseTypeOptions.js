@@ -4,4 +4,5 @@ export default [
   { label: "Simplex", value: "simplex" },
   { label: "Worley", value: "worley" },
   { label: "White", value: "white" },
+  { label: "FBM", value: "fbm" }, // New entry
 ];
