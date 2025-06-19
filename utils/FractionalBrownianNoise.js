@@ -53,7 +53,7 @@ class FractionalBrownianNoise {
     // Main FBM noise method
     // Accepts x, y, z to be compatible with other noise generators, but z is currently ignored.
     noise(x, y, z) {
-        let _st = { x: x, y: y }; // Work with 2D coordinates for FBM logic
+        let _st = { x: x + z, y: y + z }; // Incorporate z (time) into initial coordinates
 
         let v = 0.0;
         let a = 0.5;
