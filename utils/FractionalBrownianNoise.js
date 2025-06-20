@@ -3,7 +3,7 @@ class FractionalBrownianNoise {
     constructor() {
         this.NUM_OCTAVES = 5;
         // Pre-calculate rotation matrix components
-        const rotationAngle = 0.5;
+        const rotationAngle = Math.random() * Math.PI * 2;
         this.cosAngle = Math.cos(rotationAngle);
         this.sinAngle = Math.sin(rotationAngle);
     }
