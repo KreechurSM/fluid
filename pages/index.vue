@@ -47,7 +47,7 @@
 
     <main class="flex-1 flex flex-col md:flex-row gap-4 p-4">
       <!-- Left Sidebar for Desktop -->
-      <aside v-if="isDesktop" class="w-full md:w-72 flex-shrink-0 flex flex-col">
+      <aside class="hidden md:flex w-full md:w-72 flex-shrink-0 flex-col">
         <MatrixSettings
           v-model:dimensions="dimensions"
           v-model:size="size"
@@ -90,7 +90,7 @@
       </section>
 
       <!-- Right Sidebar for Desktop -->
-      <aside v-if="isDesktop" class="w-full md:w-72 flex-shrink-0 flex flex-col">
+      <aside class="hidden md:flex w-full md:w-72 flex-shrink-0 flex-col">
         <PropertiesPanel
           v-model:dotMin="dotMin"
           v-model:dotMax="dotMax"
@@ -110,7 +110,7 @@
       </aside>
 
       <!-- Mobile Slideover -->
-      <div v-if="!isDesktop">
+      <div class="md:hidden">
         <UButton
           icon="i-heroicons-cog-6-tooth"
           variant="outline"
@@ -162,15 +162,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useSeoMeta } from '#imports'
-import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
 import MatrixSettings from '~/components/MatrixSettings.vue'
 import FlowCanvas from '~/components/FlowCanvas.vue'
 import PropertiesPanel from '~/components/PropertiesPanel.vue'
 
 const isSlideoverOpen = ref(false)
-
-const breakpoints = useBreakpoints(breakpointsTailwind)
-const isDesktop = breakpoints.greaterOrEqual('md')
 
 const dimensions = ref(88)
 const size = ref(0.85)
