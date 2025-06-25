@@ -2,9 +2,9 @@
   <div :class="['min-h-screen', 'flex flex-col']">
     <!-- Header -->
     <header class="flex items-center justify-between px-4 py-3 border-b border-neutral-800">
-      <div class="flex items-center gap-2"> <!-- text-gradient removed from here -->
+      <div class="flex items-center gap-2">
         <img src="/logo.svg" alt="Fluid Logo" class="h-6 w-6">
-        <span class="font-bold text-lg text-gradient">FLUID</span> <!-- text-gradient added back here -->
+        <span class="font-bold text-lg text-gradient">FLUID</span>
       </div>
       <div class="flex items-center gap-2">
         <UButton
@@ -57,11 +57,6 @@
           v-model:gradientEnd="gradientEnd"
         />
         <div class="flex flex-grow"/>
-        <div class="text-xs text-neutral-400 mt-8 text-left">
-          <span>
-            Made with ❤ by <a href="https://www.linkedin.com/in/steve-martin2/" target="_blank" class="underline">Steve Martin</a>
-          </span>
-        </div>
       </aside>
 
       <!-- Center Canvas -->
@@ -104,58 +99,71 @@
           v-model:noiseType="noiseType"
         />
         <div class="flex-grow" />
-        <div class="text-xs text-neutral-400 mt-8 text-right">
-          Last updated June 2025 – v1.1.2
-        </div>
       </aside>
 
-      <!-- Mobile Slideover -->
+      <!-- Mobile Slideover (only rendered on mobile) -->
       <div class="md:hidden">
-        <UButton
-          icon="i-heroicons-cog-6-tooth"
-          variant="outline"
-          size="sm"
-          class="fixed bottom-4 right-4 z-50"
-          @click="isSlideoverOpen = true"
-          aria-label="Open Settings"
-        />
         <USlideover v-model="isSlideoverOpen">
-          <UCard class="flex flex-col flex-1 overflow-y-auto" :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
-            <template #header>
-              <div class="flex items-center justify-between">
-                <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-                  Settings
-                </h3>
-                <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="isSlideoverOpen = false" />
+          <UButton
+            icon="i-heroicons-cog-6-tooth"
+            variant="outline"
+            size="sm"
+            class="md:hidden"
+            @click="isSlideoverOpen = true"
+            :class="{'text-gradient': isSlideoverOpen}"
+            aria-label="Open Settings"
+          >
+            Show Settings
+          </UButton>
+          <template #content>
+            <UCard class="flex flex-col flex-1 overflow-y-auto" :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+              <template #header>
+                <div class="flex items-center justify-between">
+                  <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+                    Settings
+                  </h3>
+                  <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="isSlideoverOpen = false" />
+                </div>
+              </template>
+              <div class="p-4">
+                <MatrixSettings
+                  v-model:dimensions="dimensions"
+                  v-model:size="size"
+                  v-model:colorMode="colorMode"
+                  v-model:solidColor="solidColor"
+                  v-model:gradientStart="gradientStart"
+                  v-model:gradientEnd="gradientEnd"
+                />
+                <PropertiesPanel
+                  class="mt-4"
+                  v-model:dotMin="dotMin"
+                  v-model:dotMax="dotMax"
+                  v-model:amplitude="amplitude"
+                  v-model:waves="waves"
+                  v-model:frequency="frequency"
+                  v-model:repelEnabled="repelEnabled"
+                  v-model:repelRadius="repelRadius"
+                  v-model:repelStrength="repelStrength"
+                  v-model:maxDisplacement="maxDisplacement"
+                  v-model:noiseType="noiseType"
+                />
               </div>
-            </template>
-            <div class="p-4">
-              <MatrixSettings
-                v-model:dimensions="dimensions"
-                v-model:size="size"
-                v-model:colorMode="colorMode"
-                v-model:solidColor="solidColor"
-                v-model:gradientStart="gradientStart"
-                v-model:gradientEnd="gradientEnd"
-              />
-              <PropertiesPanel
-                class="mt-4"
-                v-model:dotMin="dotMin"
-                v-model:dotMax="dotMax"
-                v-model:amplitude="amplitude"
-                v-model:waves="waves"
-                v-model:frequency="frequency"
-                v-model:repelEnabled="repelEnabled"
-                v-model:repelRadius="repelRadius"
-                v-model:repelStrength="repelStrength"
-                v-model:maxDisplacement="maxDisplacement"
-                v-model:noiseType="noiseType"
-              />
-            </div>
-          </UCard>
+            </UCard>
+          </template>
         </USlideover>
       </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="w-full px-4 py-6 mt-auto flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-neutral-400">
+      <span class="text-left w-full md:w-auto">
+        Made with ❤ by
+        <a href="https://www.linkedin.com/in/steve-martin2/" target="_blank" class="underline">Steve Martin</a>
+      </span>
+      <span class="md:text-right w-full md:w-auto">
+        Last updated June 2025 – v1.1.2
+      </span>
+    </footer>
   </div>
 </template>
 
