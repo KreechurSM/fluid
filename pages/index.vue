@@ -46,8 +46,8 @@
     </header>
 
     <main class="flex-1 flex flex-col md:flex-row gap-4 p-4">
-      <!-- Left Sidebar -->
-      <aside class="w-full md:w-72 flex-shrink-0 flex flex-col">
+      <!-- Left Sidebar for Desktop -->
+      <aside class="hidden md:flex w-full md:w-72 flex-shrink-0 flex-col">
         <MatrixSettings
           v-model:dimensions="dimensions"
           v-model:size="size"
@@ -89,8 +89,8 @@
         />
       </section>
 
-      <!-- Right Sidebar -->
-      <aside class="w-full md:w-72 flex-shrink-0 flex flex-col">
+      <!-- Right Sidebar for Desktop -->
+      <aside class="hidden md:flex w-full md:w-72 flex-shrink-0 flex-col">
         <PropertiesPanel
           v-model:dotMin="dotMin"
           v-model:dotMax="dotMax"
@@ -108,6 +108,53 @@
           Last updated June 2025 – v1.1.2
         </div>
       </aside>
+
+      <!-- Mobile Slideover -->
+      <div class="md:hidden">
+        <UButton
+          icon="i-heroicons-cog-6-tooth"
+          variant="outline"
+          size="sm"
+          class="fixed bottom-4 right-4 z-50"
+          @click="isSlideoverOpen = true"
+          aria-label="Open Settings"
+        />
+        <USlideover v-model="isSlideoverOpen">
+          <UCard class="flex flex-col flex-1 overflow-y-auto" :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+            <template #header>
+              <div class="flex items-center justify-between">
+                <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+                  Settings
+                </h3>
+                <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="isSlideoverOpen = false" />
+              </div>
+            </template>
+            <div class="p-4">
+              <MatrixSettings
+                v-model:dimensions="dimensions"
+                v-model:size="size"
+                v-model:colorMode="colorMode"
+                v-model:solidColor="solidColor"
+                v-model:gradientStart="gradientStart"
+                v-model:gradientEnd="gradientEnd"
+              />
+              <PropertiesPanel
+                class="mt-4"
+                v-model:dotMin="dotMin"
+                v-model:dotMax="dotMax"
+                v-model:amplitude="amplitude"
+                v-model:waves="waves"
+                v-model:frequency="frequency"
+                v-model:repelEnabled="repelEnabled"
+                v-model:repelRadius="repelRadius"
+                v-model:repelStrength="repelStrength"
+                v-model:maxDisplacement="maxDisplacement"
+                v-model:noiseType="noiseType"
+              />
+            </div>
+          </UCard>
+        </USlideover>
+      </div>
     </main>
   </div>
 </template>
@@ -118,6 +165,8 @@ import { useSeoMeta } from '#imports'
 import MatrixSettings from '~/components/MatrixSettings.vue'
 import FlowCanvas from '~/components/FlowCanvas.vue'
 import PropertiesPanel from '~/components/PropertiesPanel.vue'
+
+const isSlideoverOpen = ref(false)
 
 const dimensions = ref(88)
 const size = ref(0.85)
