@@ -40,9 +40,9 @@
           variant="ghost"
           size="sm"
           class="ml-2"
-          @click="randomizePerlin"
+          @click="randomizeNoise"
         >
-          Randomize
+          {{ randomizeText }}
         </UButton>
       </div>
     </header>
@@ -178,13 +178,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useSeoMeta } from "#imports";
+import { useBreakpoints, breakpointsTailwind } from "@vueuse/core";
 import MatrixSettings from "~/components/MatrixSettings.vue";
 import FlowCanvas from "~/components/FlowCanvas.vue";
 import PropertiesPanel from "~/components/PropertiesPanel.vue";
-
-const isSlideoverOpen = ref(false);
 
 const dimensions = ref(88);
 const size = ref(0.85);
@@ -218,9 +217,16 @@ function downloadSVG() {
   flowCanvasRef.value?.exportSVG();
 }
 
-function randomizePerlin() {
+function randomizeNoise() {
   flowCanvasRef.value?.randomizeNoise();
 }
+
+// --- Add this for responsive Randomize text ---
+const breakpoints = useBreakpoints(breakpointsTailwind);
+const randomizeText = computed(() =>
+  breakpoints.greaterOrEqual("sm").value ? "Randomize" : ""
+);
+// ----------------------------------------------
 
 useSeoMeta({
   title: "Fluid - Steve Martin", // Changed
