@@ -103,7 +103,6 @@
         <div class="flex-grow" />
       </aside>
 
-      <!-- Mobile Slideover (only rendered on mobile) -->
       <div class="md:hidden">
         <USlideover
           title="Settings"
@@ -113,9 +112,7 @@
             icon="i-heroicons-cog-6-tooth"
             variant="outline"
             size="sm"
-            class="md:hidden"
-            @click="isSlideoverOpen = true"
-            :class="{ 'text-gradient': isSlideoverOpen }"
+            class="md:hidden text-gradient"
             aria-label="Open Settings"
           >
             Show Settings
@@ -171,7 +168,7 @@
         >
       </span>
       <span class="md:text-right w-full md:w-auto">
-        Last updated June 2025 – v1.1.3
+        Last updated June 2025 – v1.1.4
       </span>
     </footer>
   </div>

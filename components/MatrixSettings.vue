@@ -1,21 +1,12 @@
 <template>
   <UCard variant="subtle" class="rounded-none overflow-visible">
     <template #header>
-      <div
-        class="flex items-center justify-between cursor-pointer select-none"
-        @click="isOpen = !isOpen"
-      >
-        <div class="flex items-center gap-2">
-          <UIcon name="i-lucide-grip" class="text-neutral-400" />
-          <span class="font-semibold">Matrix Settings</span>
-        </div>
-        <span
-          class="transition-transform duration-300"
-          :class="isOpen ? 'rotate-180' : ''"
-        >
-          <UIcon name="i-lucide-chevron-up" />
-        </span>
-      </div>
+      <CollapsibleCardHeader
+        icon="i-lucide-grip"
+        title="Matrix Settings"
+        :isOpen="isOpen"
+        @toggle="isOpen = !isOpen"
+      />
     </template>
     <transition name="fade-slide">
       <div v-if="isOpen">

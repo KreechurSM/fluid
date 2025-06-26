@@ -1,21 +1,12 @@
 <template>
   <UCard variant="subtle" class="overflow-visible rounded-none">
     <template #header>
-      <div
-        class="flex items-center justify-between cursor-pointer select-none"
-        @click="isOpen = !isOpen"
-      >
-        <div class="flex items-center gap-2">
-          <UIcon name="i-lucide-audio-waveform" class="text-neutral-400" />
-          <span class="font-semibold">Noise Settings</span>
-        </div>
-        <span
-          class="transition-transform duration-300"
-          :class="isOpen ? 'rotate-180' : ''"
-        >
-          <UIcon name="i-lucide-chevron-up" />
-        </span>
-      </div>
+      <CollapsibleCardHeader
+        icon="i-lucide-audio-waveform"
+        title="Noise Settings"
+        :isOpen="isOpen"
+        @toggle="isOpen = !isOpen"
+      />
     </template>
     <transition name="fade-slide">
       <div v-if="isOpen">
