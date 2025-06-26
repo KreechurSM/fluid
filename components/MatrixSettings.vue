@@ -10,43 +10,25 @@
     </template>
     <transition name="fade-slide">
       <div v-if="isOpen">
-        <div class="mb-4">
-          <UTooltip
-            text="Controls the number of rows and columns in the grid. Higher values create a denser grid."
-          >
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-grid" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1">Dimensions</label>
-              <span class="ml-auto text-xs"
-                >{{ dimensions }} x {{ dimensions }}</span
-              >
-            </div>
-          </UTooltip>
-          <USlider
-            v-model="dimensions"
-            :min="10"
-            :max="150"
-            class="interactive"
-          />
-        </div>
-        <div class="mb-4">
-          <UTooltip
-            text="Adjusts the overall size of the grid relative to the canvas."
-          >
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-maximize-2" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1">Size</label>
-              <span class="ml-auto text-xs">{{ size }}</span>
-            </div>
-          </UTooltip>
-          <USlider
-            v-model="size"
-            :min="0.1"
-            :max="1"
-            :step="0.01"
-            class="interactive"
-          />
-        </div>
+        <LabeledSlider
+          v-model="dimensions"
+          icon="i-lucide-grid"
+          label="Dimensions"
+          :tooltip="'Controls the number of rows and columns in the grid. Higher values create a denser grid.'"
+          :min="10"
+          :max="150"
+        >
+          <template #value> {{ dimensions }} x {{ dimensions }} </template>
+        </LabeledSlider>
+        <LabeledSlider
+          v-model="size"
+          icon="i-lucide-maximize-2"
+          label="Size"
+          :tooltip="'Adjusts the overall size of the grid relative to the canvas.'"
+          :min="0.1"
+          :max="1"
+          :step="0.01"
+        />
         <div class="mb-4">
           <UTooltip
             text="Choose between a gradient (vertical color blend) or a solid color for all dots."

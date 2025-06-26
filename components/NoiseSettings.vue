@@ -26,116 +26,65 @@
             class="w-40 interactive"
           />
         </div>
-        <div class="mb-4">
-          <UTooltip
-            text="Controls how far dots can move from their base position (the strength of the noise effect)."
-          >
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-activity" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1">Amplitude</label>
-              <span class="ml-auto text-xs">{{ amplitude }}</span>
-            </div>
-          </UTooltip>
-          <USlider
-            v-model="amplitude"
-            :min="0"
-            :max="100"
-            :step="1"
-            class="interactive"
-          />
-        </div>
-        <div class="mb-4">
-          <UTooltip
-            text="Set the minimum size for each dot. The actual size animates based on how much each dot is displaced."
-          >
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-dot" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1">Dot Minimum</label>
-              <span class="ml-auto text-xs">{{ dotMin }}</span>
-            </div>
-          </UTooltip>
-          <USlider
-            v-model="dotMin"
-            :min="0.1"
-            :max="3"
-            :step="0.1"
-            class="interactive"
-          />
-        </div>
-        <div class="mb-4">
-          <UTooltip
-            text="Set the maximum size for each dot. The actual size animates based on how much each dot is displaced."
-          >
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-circle-plus" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1">Dot Max</label>
-              <span class="ml-auto text-xs">{{ dotMax }}</span>
-            </div>
-          </UTooltip>
-          <USlider
-            v-model="dotMax"
-            :min="1"
-            :max="8"
-            :step="0.1"
-            class="interactive"
-          />
-        </div>
-        <div class="mb-4">
-          <UTooltip
-            text="Controls the speed of the animation (how quickly the noise evolves over time)."
-          >
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-radio" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1">Frequency</label>
-              <span class="ml-auto text-xs">{{ frequency }}</span>
-            </div>
-          </UTooltip>
-          <USlider
-            v-model="frequency"
-            :min="0"
-            :max="0.025"
-            :step="0.00025"
-            class="interactive"
-          />
-        </div>
-        <div class="mb-6">
-          <UTooltip
-            text="Sets the maximum distance a dot can move from its original grid position."
-          >
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-move-diagonal" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1"
-                >Max Displacement</label
-              >
-              <span class="ml-auto text-xs">{{ maxDisplacement }}</span>
-            </div>
-          </UTooltip>
-          <USlider
-            v-model="maxDisplacement"
-            :min="1"
-            :max="100"
-            :step="1"
-            class="interactive"
-          />
-        </div>
-        <div class="mb-4">
-          <UTooltip
-            text="Adjusts the frequency of the noise, affecting the 'waviness' of the flow."
-          >
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-waves" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1">Waves</label>
-              <span class="ml-auto text-xs">{{ waves }}</span>
-            </div>
-          </UTooltip>
-          <USlider
-            v-model="waves"
-            :min="0"
-            :max="0.25"
-            :step="0.001"
-            class="interactive"
-          />
-        </div>
+        <LabeledSlider
+          v-model="amplitude"
+          icon="i-lucide-activity"
+          label="Amplitude"
+          :tooltip="'Controls how far dots can move from their base position (the strength of the noise effect).'"
+          :min="0"
+          :max="100"
+          :step="1"
+        />
+
+        <LabeledSlider
+          v-model="dotMin"
+          icon="i-lucide-dot"
+          label="Dot Minimum"
+          :tooltip="'Set the minimum size for each dot. The actual size animates based on how much each dot is displaced.'"
+          :min="0.1"
+          :max="3"
+          :step="0.1"
+        />
+
+        <LabeledSlider
+          v-model="dotMax"
+          icon="i-lucide-circle-plus"
+          label="Dot Max"
+          :tooltip="'Set the maximum size for each dot. The actual size animates based on how much each dot is displaced.'"
+          :min="1"
+          :max="8"
+          :step="0.1"
+        />
+
+        <LabeledSlider
+          v-model="frequency"
+          icon="i-lucide-radio"
+          label="Frequency"
+          :tooltip="'Controls the speed of the animation (how quickly the noise evolves over time).'"
+          :min="0"
+          :max="0.025"
+          :step="0.00025"
+        />
+
+        <LabeledSlider
+          v-model="maxDisplacement"
+          icon="i-lucide-move-diagonal"
+          label="Max Displacement"
+          :tooltip="'Sets the maximum distance a dot can move from its original grid position.'"
+          :min="1"
+          :max="100"
+          :step="1"
+        />
+
+        <LabeledSlider
+          v-model="waves"
+          icon="i-lucide-waves"
+          label="Waves"
+          :tooltip="'Adjusts the frequency of the noise, affecting the waviness of the flow.'"
+          :min="0"
+          :max="0.25"
+          :step="0.001"
+        />
         <!-- Consistent Repel Settings Header -->
         <div class="font-semibold mt-6 mb-4 flex items-center gap-2">
           <UIcon name="i-lucide-shield-off" class="text-neutral-400" />
@@ -150,42 +99,27 @@
             <span class="text-sm">Enable Repel</span>
           </UTooltip>
         </div>
-        <div class="mb-4">
-          <UTooltip text="The area around the mouse that affects the dots.">
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-expand" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1">Repel Radius</label>
-              <span class="ml-auto text-xs">{{ repelRadius }}</span>
-            </div>
-          </UTooltip>
-          <USlider
-            v-model="repelRadius"
-            :min="10"
-            :max="200"
-            :step="1"
-            :disabled="!repelEnabled"
-            class="interactive"
-          />
-        </div>
-        <div>
-          <UTooltip text="How strongly dots are pushed away from the mouse.">
-            <div class="flex items-center gap-2 mb-1">
-              <UIcon name="i-lucide-zap" class="text-neutral-400" />
-              <label class="block text-sm font-medium mb-1"
-                >Repel Strength</label
-              >
-              <span class="ml-auto text-xs">{{ repelStrength }}</span>
-            </div>
-          </UTooltip>
-          <USlider
-            v-model="repelStrength"
-            :min="1"
-            :max="100"
-            :step="1"
-            :disabled="!repelEnabled"
-            class="interactive"
-          />
-        </div>
+        <LabeledSlider
+          v-model="repelRadius"
+          icon="i-lucide-expand"
+          label="Repel Radius"
+          :tooltip="'The area around the mouse that affects the dots.'"
+          :min="10"
+          :max="200"
+          :step="1"
+          :disabled="!repelEnabled"
+        />
+
+        <LabeledSlider
+          v-model="repelStrength"
+          icon="i-lucide-zap"
+          label="Repel Strength"
+          :tooltip="'How strongly dots are pushed away from the mouse.'"
+          :min="1"
+          :max="100"
+          :step="1"
+          :disabled="!repelEnabled"
+        />
       </div>
     </transition>
   </UCard>
