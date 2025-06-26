@@ -192,44 +192,53 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import noiseTypeOptions from "@/utils/noiseTypeOptions.js"; // <-- Import here
+import { useSettingsStore } from "~/store/settings";
 
-const props = defineProps([
-  "dotMin",
-  "dotMax",
-  "amplitude",
-  "waves",
-  "frequency",
-  "repelEnabled",
-  "repelRadius",
-  "repelStrength",
-  "maxDisplacement",
-  "noiseType",
-]);
-const emit = defineEmits([
-  "update:dotMin",
-  "update:dotMax",
-  "update:amplitude",
-  "update:waves",
-  "update:frequency",
-  "update:repelEnabled",
-  "update:repelRadius",
-  "update:repelStrength",
-  "update:maxDisplacement",
-  "update:noiseType",
-]);
+const settingsStore = useSettingsStore();
 
-const dotMin = defineModel("dotMin");
-const dotMax = defineModel("dotMax");
-const amplitude = defineModel("amplitude");
-const waves = defineModel("waves");
-const frequency = defineModel("frequency");
-const repelEnabled = defineModel("repelEnabled");
-const repelRadius = defineModel("repelRadius");
-const repelStrength = defineModel("repelStrength");
-const maxDisplacement = defineModel("maxDisplacement");
-const noiseType = defineModel("noiseType");
+// Computed properties to get and set values from the store
+const dotMin = computed({
+  get: () => settingsStore.dotMin,
+  set: (val) => settingsStore.setDotMin(val),
+});
+const dotMax = computed({
+  get: () => settingsStore.dotMax,
+  set: (val) => settingsStore.setDotMax(val),
+});
+const amplitude = computed({
+  get: () => settingsStore.amplitude,
+  set: (val) => settingsStore.setAmplitude(val),
+});
+const waves = computed({
+  get: () => settingsStore.waves,
+  set: (val) => settingsStore.setWaves(val),
+});
+const frequency = computed({
+  get: () => settingsStore.frequency,
+  set: (val) => settingsStore.setFrequency(val),
+});
+const repelEnabled = computed({
+  get: () => settingsStore.repelEnabled,
+  set: (val) => settingsStore.setRepelEnabled(val),
+});
+const repelRadius = computed({
+  get: () => settingsStore.repelRadius,
+  set: (val) => settingsStore.setRepelRadius(val),
+});
+const repelStrength = computed({
+  get: () => settingsStore.repelStrength,
+  set: (val) => settingsStore.setRepelStrength(val),
+});
+const maxDisplacement = computed({
+  get: () => settingsStore.maxDisplacement,
+  set: (val) => settingsStore.setMaxDisplacement(val),
+});
+const noiseType = computed({
+  get: () => settingsStore.noiseType,
+  set: (val) => settingsStore.setNoiseType(val),
+});
 
 const isOpen = ref(true);
 </script>

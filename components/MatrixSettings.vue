@@ -150,34 +150,40 @@
 </template>
 
 <script setup>
-import { onMounted, watch, ref } from "vue";
+import { onMounted, watch, ref, computed } from "vue";
 import { hexToHSL, lerp } from "@/composables/useColor.js";
-const props = defineProps([
-  "dimensions",
-  "size",
-  "colorMode",
-  "solidColor",
-  "gradientStart",
-  "gradientEnd",
-]);
-const emit = defineEmits([
-  "update:dimensions",
-  "update:size",
-  "update:colorMode",
-  "update:solidColor",
-  "update:gradientStart",
-  "update:gradientEnd",
-]);
+import { useSettingsStore } from "~/store/settings";
 
-const dimensions = defineModel("dimensions");
-const size = defineModel("size");
-const colorMode = defineModel("colorMode");
-const solidColor = defineModel("solidColor");
-const gradientStart = defineModel("gradientStart");
-const gradientEnd = defineModel("gradientEnd");
+const settingsStore = useSettingsStore();
 
-const items = ref(["Backlog", "Todo", "In Progress", "Done"]);
-const value = ref("Backlog");
+// Computed properties to get and set values from the store
+const dimensions = computed({
+  get: () => settingsStore.dimensions,
+  set: (val) => settingsStore.setDimensions(val),
+});
+const size = computed({
+  get: () => settingsStore.size,
+  set: (val) => settingsStore.setSize(val),
+});
+const colorMode = computed({
+  get: () => settingsStore.colorMode,
+  set: (val) => settingsStore.setColorMode(val),
+});
+const solidColor = computed({
+  get: () => settingsStore.solidColor,
+  set: (val) => settingsStore.setSolidColor(val),
+});
+const gradientStart = computed({
+  get: () => settingsStore.gradientStart,
+  set: (val) => settingsStore.setGradientStart(val),
+});
+const gradientEnd = computed({
+  get: () => settingsStore.gradientEnd,
+  set: (val) => settingsStore.setGradientEnd(val),
+});
+
+const items = ref(["Backlog", "Todo", "In Progress", "Done"]); // This seems unused, consider removing if not needed for other functionality.
+const value = ref("Backlog"); // This seems unused, consider removing if not needed for other functionality.
 
 const colorOptions = ref([
   { label: "Gradient", value: "gradient" },

@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  modules: ["@nuxt/ui", "@nuxt/image", "@nuxtjs/google-fonts", "@nuxtjs/seo"],
+  modules: ["@nuxt/ui", "@nuxt/image", "@nuxtjs/google-fonts", "@nuxtjs/seo", "@pinia/nuxt"],
   seo: {
     siteName: 'Fluid',
     siteDescription: 'Fluid is a dynamic Perlin Noise Visualizer and Playground. Create stunning, interactive noise patterns and dive into a world of smooth, organic visuals. Perfect for artists, developers and enthusiasts.',
