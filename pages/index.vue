@@ -50,57 +50,19 @@
     <main class="flex-1 flex flex-col md:flex-row gap-4">
       <!-- Left Sidebar for Desktop -->
       <aside class="hidden md:flex w-full md:w-72 flex-shrink-0 flex-col">
-        <MatrixSettings
-          v-model:dimensions="dimensions"
-          v-model:size="size"
-          v-model:colorMode="colorMode"
-          v-model:solidColor="solidColor"
-          v-model:gradientStart="gradientStart"
-          v-model:gradientEnd="gradientEnd"
-        />
+        <MatrixSettings />
         <div class="flex flex-grow" />
       </aside>
 
       <!-- Center Canvas -->
       <section class="flex-1 flex items-center justify-center">
-        <FlowCanvas
-          ref="flowCanvasRef"
-          :dimensions="dimensions"
-          :size="size"
-          :color-mode="colorMode"
-          :solid-color="solidColor"
-          :gradient-start="gradientStart"
-          :gradient-end="gradientEnd"
-          :dotMin="dotMin"
-          :dotMax="dotMax"
-          :amplitude="amplitude"
-          :waves="waves"
-          :frequency="frequency"
-          :repelEnabled="repelEnabled"
-          :repelRadius="repelRadius"
-          :repelStrength="repelStrength"
-          :maxDisplacement="maxDisplacement"
-          :isPaused="isPaused"
-          :noiseType="noiseType"
-          @toggle-pause="togglePause"
-        />
+        <FlowCanvas ref="flowCanvasRef" @toggle-pause="togglePause" />
       </section>
 
       <!-- Right Sidebar for Desktop -->
       <aside class="hidden md:flex w-full md:w-72 flex-shrink-0 flex-col">
-        <PropertiesPanel
-          v-model:dotMin="dotMin"
-          v-model:dotMax="dotMax"
-          v-model:amplitude="amplitude"
-          v-model:waves="waves"
-          v-model:frequency="frequency"
-          v-model:repelEnabled="repelEnabled"
-          v-model:repelRadius="repelRadius"
-          v-model:repelStrength="repelStrength"
-          v-model:maxDisplacement="maxDisplacement"
-          v-model:noiseType="noiseType"
-        />
-        <div class="flex-grow" />
+        <PropertiesPanel />
+        <div class="flex flex-grow" />
       </aside>
 
       <div class="md:hidden">
@@ -126,27 +88,8 @@
               }"
             >
               <div class="p-4">
-                <MatrixSettings
-                  v-model:dimensions="dimensions"
-                  v-model:size="size"
-                  v-model:colorMode="colorMode"
-                  v-model:solidColor="solidColor"
-                  v-model:gradientStart="gradientStart"
-                  v-model:gradientEnd="gradientEnd"
-                />
-                <PropertiesPanel
-                  class="mt-4"
-                  v-model:dotMin="dotMin"
-                  v-model:dotMax="dotMax"
-                  v-model:amplitude="amplitude"
-                  v-model:waves="waves"
-                  v-model:frequency="frequency"
-                  v-model:repelEnabled="repelEnabled"
-                  v-model:repelRadius="repelRadius"
-                  v-model:repelStrength="repelStrength"
-                  v-model:maxDisplacement="maxDisplacement"
-                  v-model:noiseType="noiseType"
-                />
+                <MatrixSettings />
+                <PropertiesPanel class="mt-4" />
               </div>
             </UCard>
           </template>
@@ -175,33 +118,88 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { computed, ref } from "vue";
 import { useSeoMeta } from "#imports";
 import { useBreakpoints, breakpointsTailwind } from "@vueuse/core";
 import MatrixSettings from "~/components/MatrixSettings.vue";
 import FlowCanvas from "~/components/FlowCanvas.vue";
 import PropertiesPanel from "~/components/NoiseSettings.vue";
+import { useSettingsStore } from "~/store/settings";
 
-const dimensions = ref(88);
-const size = ref(0.85);
-const colorMode = ref("gradient");
-const solidColor = ref("#ffffff");
-const gradientStart = ref("#00d492");
-const gradientEnd = ref("#51a2ff");
-const dotMin = ref(0.3);
-const dotMax = ref(4);
-const amplitude = ref(20);
-const waves = ref(0.1);
-const frequency = ref(0.002);
-const repelEnabled = ref(false);
-const repelRadius = ref(75);
-const repelStrength = ref(15);
-const maxDisplacement = ref(40);
-const noiseType = ref("perlin");
+const settingsStore = useSettingsStore();
 
-const isPaused = ref(false);
+// Computed properties to get and set values from the store
+const dimensions = computed({
+  get: () => settingsStore.dimensions,
+  set: (val) => settingsStore.setDimensions(val),
+});
+const size = computed({
+  get: () => settingsStore.size,
+  set: (val) => settingsStore.setSize(val),
+});
+const colorMode = computed({
+  get: () => settingsStore.colorMode,
+  set: (val) => settingsStore.setColorMode(val),
+});
+const solidColor = computed({
+  get: () => settingsStore.solidColor,
+  set: (val) => settingsStore.setSolidColor(val),
+});
+const gradientStart = computed({
+  get: () => settingsStore.gradientStart,
+  set: (val) => settingsStore.setGradientStart(val),
+});
+const gradientEnd = computed({
+  get: () => settingsStore.gradientEnd,
+  set: (val) => settingsStore.setGradientEnd(val),
+});
+const dotMin = computed({
+  get: () => settingsStore.dotMin,
+  set: (val) => settingsStore.setDotMin(val),
+});
+const dotMax = computed({
+  get: () => settingsStore.dotMax,
+  set: (val) => settingsStore.setDotMax(val),
+});
+const amplitude = computed({
+  get: () => settingsStore.amplitude,
+  set: (val) => settingsStore.setAmplitude(val),
+});
+const waves = computed({
+  get: () => settingsStore.waves,
+  set: (val) => settingsStore.setWaves(val),
+});
+const frequency = computed({
+  get: () => settingsStore.frequency,
+  set: (val) => settingsStore.setFrequency(val),
+});
+const repelEnabled = computed({
+  get: () => settingsStore.repelEnabled,
+  set: (val) => settingsStore.setRepelEnabled(val),
+});
+const repelRadius = computed({
+  get: () => settingsStore.repelRadius,
+  set: (val) => settingsStore.setRepelRadius(val),
+});
+const repelStrength = computed({
+  get: () => settingsStore.repelStrength,
+  set: (val) => settingsStore.setRepelStrength(val),
+});
+const maxDisplacement = computed({
+  get: () => settingsStore.maxDisplacement,
+  set: (val) => settingsStore.setMaxDisplacement(val),
+});
+const noiseType = computed({
+  get: () => settingsStore.noiseType,
+  set: (val) => settingsStore.setNoiseType(val),
+});
+const isPaused = computed({
+  get: () => settingsStore.isPaused,
+  set: (val) => settingsStore.setIsPaused(val),
+});
+
 function togglePause() {
-  isPaused.value = !isPaused.value;
+  settingsStore.togglePause();
 }
 
 const flowCanvasRef = ref(null);

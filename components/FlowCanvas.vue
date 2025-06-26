@@ -26,14 +26,12 @@ import SimplexNoise from '@/utils/SimplexNoise.js'
 import WorleyNoise from '@/utils/WorleyNoise.js'
 import WhiteNoise from '@/utils/WhiteNoise.js'
 import FractionalBrownianNoise from '@/utils/FractionalBrownianNoise.js'
+import { useSettingsStore } from '~/store/settings'
 
-const props = defineProps([
-  'dimensions', 'size',
-  'colorMode', 'solidColor', 'gradientStart', 'gradientEnd',
-  'dotMin', 'dotMax', 'amplitude', 'waves', 'frequency', 'repelEnabled', 'repelRadius', 'repelStrength', 'maxDisplacement',
-  'isPaused',
-  'noiseType'
-])
+const settingsStore = useSettingsStore();
+
+// No longer need props for settings, they will be accessed from the store directly
+// const props = defineProps(['isPaused']) // Only if isPaused is still passed as a prop
 const emit = defineEmits(['toggle-pause'])
 
 const canvasRef = ref(null)
@@ -47,11 +45,11 @@ let time = 0
 let noiseGen
 
 function getDotColor(baseY, canvasHeight) {
-  if (props.colorMode === 'solid') {
-    return props.solidColor
+  if (settingsStore.colorMode === 'solid') {
+    return settingsStore.solidColor
   } else {
-    const startHSL = hexToHSL(props.gradientStart)
-    const endHSL = hexToHSL(props.gradientEnd)
+    const startHSL = hexToHSL(settingsStore.gradientStart)
+    const endHSL = hexToHSL(settingsStore.gradientEnd)
     const t = baseY / canvasHeight
     const currentH = lerp(startHSL.h, endHSL.h, t)
     const currentS = lerp(startHSL.s, endHSL.s, t)
@@ -70,8 +68,8 @@ function draw() {
   const ctx = canvas.getContext('2d')
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-  const gridPixelSize = canvas.width * Number(props.size)
-  const gridCount = Number(props.dimensions) || 88
+  const gridPixelSize = canvas.width * Number(settingsStore.size)
+  const gridCount = Number(settingsStore.dimensions) || 88
   const cols = gridCount
   const rows = gridCount
   const spacingX = gridPixelSize / cols
@@ -79,15 +77,15 @@ function draw() {
   const offsetX = (canvas.width - gridPixelSize) / 2
   const offsetY = (canvas.height - gridPixelSize) / 2
 
-  const perlinScale = Number(props.waves) || 0.1
-  const perlinAmplitude = Number(props.amplitude) || 20
-  const perlinSpeed = Number(props.frequency) || 0.002
-  const maxDisplacementForSize = Number(props.maxDisplacement) || 40
-  const repelRadius = Number(props.repelEnabled) ? Number(props.repelRadius) || 75 : 0
-  const repelStrength = Number(props.repelEnabled) ? Number(props.repelStrength) || 15 : 0
+  const perlinScale = Number(settingsStore.waves) || 0.1
+  const perlinAmplitude = Number(settingsStore.amplitude) || 20
+  const perlinSpeed = Number(settingsStore.frequency) || 0.002
+  const maxDisplacementForSize = Number(settingsStore.maxDisplacement) || 40
+  const repelRadius = Number(settingsStore.repelEnabled) ? Number(settingsStore.repelRadius) || 75 : 0
+  const repelStrength = Number(settingsStore.repelEnabled) ? Number(settingsStore.repelStrength) || 15 : 0
 
-  const minDotSize = Number(props.dotMin)
-  const maxDotSize = Number(props.dotMax)
+  const minDotSize = Number(settingsStore.dotMin)
+  const maxDotSize = Number(settingsStore.dotMax)
 
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
@@ -133,7 +131,7 @@ function draw() {
     }
   }
   time++
-  if (!props.isPaused) {
+  if (!settingsStore.isPaused) {
     animationFrameId = requestAnimationFrame(draw)
   }
 }
@@ -171,12 +169,12 @@ onBeforeUnmount(() => {
 })
 
 // Optional: If you want to react to pause/play from parent
-watch(() => props.isPaused, (paused) => {
+watch(() => settingsStore.isPaused, (paused) => {
   if (!paused) draw()
   else cancelAnimationFrame(animationFrameId)
 })
 
-watch(() => props.noiseType, () => {
+watch(() => settingsStore.noiseType, () => {
   createNoise()
   draw()
 })
@@ -221,7 +219,7 @@ function createNoise() {
     white: WhiteNoise,
     fbm: FractionalBrownianNoise, // Add this line
   }
-  const NoiseClass = noiseTypes[props.noiseType] || PerlinNoise // Default to PerlinNoise
+  const NoiseClass = noiseTypes[settingsStore.noiseType] || PerlinNoise // Default to PerlinNoise
   noiseGen = new NoiseClass()
 }
 
@@ -235,22 +233,22 @@ function triggerHighlight() {
 // Watch for settings changes that affect the canvas
 watch(
   [
-    () => props.dotMin,
-    () => props.dotMax,
-    () => props.amplitude,
-    () => props.waves,
-    () => props.frequency,
-    () => props.repelEnabled,
-    () => props.repelRadius,
-    () => props.repelStrength,
-    () => props.maxDisplacement,
-    () => props.noiseType,
-    () => props.dimensions,
-    () => props.size,
-    () => props.colorMode,
-    () => props.solidColor,
-    () => props.gradientStart,
-    () => props.gradientEnd,
+    () => settingsStore.dotMin,
+    () => settingsStore.dotMax,
+    () => settingsStore.amplitude,
+    () => settingsStore.waves,
+    () => settingsStore.frequency,
+    () => settingsStore.repelEnabled,
+    () => settingsStore.repelRadius,
+    () => settingsStore.repelStrength,
+    () => settingsStore.maxDisplacement,
+    () => settingsStore.noiseType,
+    () => settingsStore.dimensions,
+    () => settingsStore.size,
+    () => settingsStore.colorMode,
+    () => settingsStore.solidColor,
+    () => settingsStore.gradientStart,
+    () => settingsStore.gradientEnd,
   ],
   () => {
     triggerHighlight()
@@ -283,8 +281,8 @@ onBeforeUnmount(() => {
 
 watch(
   [
-    () => props.size,
-    () => props.dimensions,
+    () => settingsStore.size,
+    () => settingsStore.dimensions,
   ],
   updateBurstSize
 )
