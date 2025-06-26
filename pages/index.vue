@@ -168,7 +168,7 @@
         >
       </span>
       <span class="md:text-right w-full md:w-auto">
-        Last updated June 2025 – v1.1.3
+        Last updated June 2025 – v1.1.4
       </span>
     </footer>
   </div>
