@@ -1,4 +1,5 @@
 <template>
+  <Analytics/>
   <div :class="['min-h-screen', 'flex flex-col']">
     <!-- Header -->
     <header
@@ -125,6 +126,7 @@ import MatrixSettings from "~/components/MatrixSettings.vue";
 import FlowCanvas from "~/components/FlowCanvas.vue";
 import PropertiesPanel from "~/components/NoiseSettings.vue";
 import { useSettingsStore } from "~/store/settings";
+import { Analytics } from '@vercel/analytics/nuxt'
 
 const settingsStore = useSettingsStore();
 
