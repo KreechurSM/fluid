@@ -47,7 +47,7 @@
       </div>
     </header>
 
-    <main class="flex-1 flex flex-col md:flex-row gap-4 p-4">
+    <main class="flex-1 flex flex-col md:flex-row gap-4">
       <!-- Left Sidebar for Desktop -->
       <aside class="hidden md:flex w-full md:w-72 flex-shrink-0 flex-col">
         <MatrixSettings
@@ -183,7 +183,7 @@ import { useSeoMeta } from "#imports";
 import { useBreakpoints, breakpointsTailwind } from "@vueuse/core";
 import MatrixSettings from "~/components/MatrixSettings.vue";
 import FlowCanvas from "~/components/FlowCanvas.vue";
-import PropertiesPanel from "~/components/PropertiesPanel.vue";
+import PropertiesPanel from "~/components/NoiseSettings.vue";
 
 const dimensions = ref(88);
 const size = ref(0.85);
