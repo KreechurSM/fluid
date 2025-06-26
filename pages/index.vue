@@ -103,7 +103,6 @@
         <div class="flex-grow" />
       </aside>
 
-      <!-- Mobile Slideover (only rendered on mobile) -->
       <div class="md:hidden">
         <USlideover
           title="Settings"
@@ -113,9 +112,7 @@
             icon="i-heroicons-cog-6-tooth"
             variant="outline"
             size="sm"
-            class="md:hidden"
-            @click="isSlideoverOpen = true"
-            :class="{ 'text-gradient': isSlideoverOpen }"
+            class="md:hidden text-gradient"
             aria-label="Open Settings"
           >
             Show Settings
