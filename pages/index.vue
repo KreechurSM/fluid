@@ -42,7 +42,7 @@
           class="ml-2"
           @click="randomizeNoise"
         >
-          {{ randomizeText }}
+          {{ shuffleText }}
         </UButton>
       </div>
     </header>
@@ -218,12 +218,10 @@ function randomizeNoise() {
   flowCanvasRef.value?.randomizeNoise();
 }
 
-// --- Add this for responsive Randomize text ---
 const breakpoints = useBreakpoints(breakpointsTailwind);
-const randomizeText = computed(() =>
-  breakpoints.greaterOrEqual("sm").value ? "Randomize" : ""
+const shuffleText = computed(() =>
+  breakpoints.greaterOrEqual("sm").value ? "Shuffle" : ""
 );
-// ----------------------------------------------
 
 useSeoMeta({
   title: "Fluid - Steve Martin", // Changed
